@@ -7,24 +7,24 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/sql_magic-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/sql_magic-{{ version }}.tar.gz
   sha256: f54a08dda93b6b84f992ffc000d08ec491f44230a9f59e00aaf1b4d06c0f0324
 
 build:
-  number: 0
+  number: 1
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
 
 requirements:
   host:
     - pip
-    - python >=3.6
+    - python {{ python_min }}
   run:
     - findspark
     - ipython
     - jupyter
     - pandas
-    - python >=3.6
+    - python >={{ python_min }}
     - sqlparse
     - traitlets
 
@@ -35,6 +35,7 @@ test:
     - pip check
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/pivotal-legacy/sql_magic
